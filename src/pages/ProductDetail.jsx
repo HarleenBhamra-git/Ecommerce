@@ -1,7 +1,22 @@
 import { useParams } from "react-router-dom";
+import { useState , useEffect } from "react";
 
 export default function ProductDetail() {
       const { id } = useParams();
+      const [product , setProduct] = useState(null);
+
+      useEffect(()=>{
+        fetch(`https://api.escuelajs.co/api/v1/products/${id}`)
+        .then((res)=>(res.json()))
+        .then((data)=>(setProduct(data)))
+        .catch((err)=>(console.error(err)))
+      }, [id])
+
+      if(!product) return(<h1>Loading...</h1>)
+
+
+
+  
     return (
         <>
             <main className="productDetailPage">
@@ -11,7 +26,7 @@ export default function ProductDetail() {
                     <span className="separator">/</span>
                     <span>Category</span>
                     <span className="separator">/</span>
-                    <span className="current">Product Name</span>
+                    <span className="current">{product.title}</span>
                 </div>
 
                 <div className="productContainer">
@@ -24,7 +39,7 @@ export default function ProductDetail() {
                             <img src="/placeholder4.jpg" alt="Thumbnail 4" className="thumbnail" />
                         </div>
                         <div className="mainImage">
-                            <img src="/placeholder-main.jpg" alt="Product Main" />
+                            <img src={product.images[0]} alt="Product Main" />
                         </div>
                     </div>
 
