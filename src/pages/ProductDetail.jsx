@@ -33,10 +33,9 @@ export default function ProductDetail() {
                     {/* Left Side - Product Images */}
                     <div className="productImages">
                         <div className="thumbnails">
-                            <img src="/placeholder1.jpg" alt="Thumbnail 1" className="thumbnail" />
-                            <img src="/placeholder2.jpg" alt="Thumbnail 2" className="thumbnail" />
-                            <img src="/placeholder3.jpg" alt="Thumbnail 3" className="thumbnail" />
-                            <img src="/placeholder4.jpg" alt="Thumbnail 4" className="thumbnail" />
+                            <img src={product.images[0]} alt="Thumbnail 1" className="thumbnail" />
+                            <img src={product.images[1]} alt="Thumbnail 2" className="thumbnail" />
+                            <img src={product.images[2]} alt="Thumbnail 3" className="thumbnail" />
                         </div>
                         <div className="mainImage">
                             <img src={product.images[0]} alt="Product Main" />
@@ -46,10 +45,10 @@ export default function ProductDetail() {
                     {/* Right Side - Product Info */}
                     <div className="productInfo">
                         {/* Category Tag */}
-                        <div className="categoryTag">Electronics</div>
+                        <div className="categoryTag">{product.category.name}</div>
 
                         {/* Product Title */}
-                        <h1 className="productTitle">Premium Wireless Headphones</h1>
+                        <h1 className="productTitle">{product.title}</h1>
 
                         {/* Rating Section */}
                         <div className="ratingSection">
@@ -65,9 +64,9 @@ export default function ProductDetail() {
 
                         {/* Price Section */}
                         <div className="priceSection">
-                            <span className="currentPrice">$199.99</span>
-                            <span className="originalPrice">$299.99</span>
-                            <span className="discount">33% OFF</span>
+                            <span className="currentPrice">${product.price}</span>
+                            <span className="originalPrice">${product.price + 80}</span>
+                            <span className="discount">{product.price}% OFF</span>
                         </div>
 
                         {/* Product Variants (Optional) */}
