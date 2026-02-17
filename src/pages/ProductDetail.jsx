@@ -4,7 +4,9 @@ import { useState , useEffect } from "react";
 export default function ProductDetail() {
       const { id } = useParams();
       const [product , setProduct] = useState(null);
-
+      const [selectedSize, setSelectedSize] = useState();
+      const sizes=["Small", "Medium", "Large"];
+      const [quantity, setQuantity] = useState(1)
       useEffect(()=>{
         fetch(`https://api.escuelajs.co/api/v1/products/${id}`)
         .then((res)=>(res.json()))
@@ -72,19 +74,15 @@ export default function ProductDetail() {
                         {/* Product Variants (Optional) */}
                         <div className="variants">
                             <div className="variantGroup">
-                                <label>Color:</label>
-                                <div className="options">
-                                    <button className="option active">Black</button>
-                                    <button className="option">White</button>
-                                    <button className="option">Blue</button>
-                                </div>
-                            </div>
-                            <div className="variantGroup">
                                 <label>Size:</label>
                                 <div className="options">
-                                    <button className="option">Small</button>
-                                    <button className="option active">Medium</button>
-                                    <button className="option">Large</button>
+                                    {sizes.map((size, index)=>(
+                                        
+                                    <button key={index} 
+                                    className={`option ${selectedSize=== size ? "active": ""}`} 
+                                    onClick={()=>setSelectedSize(size)}
+                                    >{size}</button>
+                                    ))}
                                 </div>
                             </div>
                         </div>
@@ -93,9 +91,12 @@ export default function ProductDetail() {
                         <div className="quantitySection">
                             <label>Quantity:</label>
                             <div className="quantityControl">
-                                <button className="qtyBtn">-</button>
+                                <button className="qtyBtn" onClick={()=>setQuantity((prev)=> prev>1 ? prev-1 : 1)
+                                    
+                                }>+</button>
+                                <button className="qtyBtn" >-</button>
                                 <input type="number" value="1" min="1" className="qtyInput" />
-                                <button className="qtyBtn">+</button>
+                                <button className="qtyBtn" onClick={()=>setQuantity((prev)=>(prev+1))}>+</button>
                             </div>
                         </div>
 
